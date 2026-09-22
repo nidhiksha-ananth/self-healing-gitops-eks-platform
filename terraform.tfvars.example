@@ -1,0 +1,13 @@
+# Copy this file to terraform.tfvars and adjust if needed.
+# terraform.tfvars is gitignored — don't commit it if you add secrets later.
+
+aws_region      = "ap-south-1"
+project_name    = "gitops-eks"
+environment     = "dev"
+cluster_name    = "gitops-eks-dev"
+cluster_version = "1.30"
+
+node_instance_types = ["t3.small"]
+node_desired_size   = 2
+node_min_size       = 1
+node_max_size       = 3
