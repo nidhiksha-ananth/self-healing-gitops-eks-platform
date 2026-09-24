@@ -4,7 +4,6 @@ A hands-on, end-to-end DevOps platform: infrastructure as code, containerized ap
 CI/CD, GitOps deployment, and self-healing Kubernetes — built and debugged from
 scratch, not copy-pasted.
 
-> Built while transitioning from a Helpdesk Support role into Cloud/DevOps.
 > Every command in this repo was run personally; real errors hit along the way
 > are documented below instead of hidden.
 
@@ -127,5 +126,4 @@ Full day-by-day command log and troubleshooting notes: see `docs/`.
 
 ## Author
 
-Built by [Your Name] — [LinkedIn link] — transitioning into Cloud/DevOps from a
-Helpdesk Support background.
+Built by Nidhiksha A — https://www.linkedin.com/in/nidhiksha-a-991a53220/
