@@ -4,7 +4,6 @@ A hands-on, end-to-end DevOps platform: infrastructure as code, containerized ap
 CI/CD, GitOps deployment, and self-healing Kubernetes — built and debugged from
 scratch, not copy-pasted.
 
-> Built while transitioning from a Helpdesk Support role into Cloud/DevOps.
 > Every command in this repo was run personally; real errors hit along the way
 > are documented below instead of hidden.
 
@@ -33,13 +32,15 @@ ArgoCD (watches the manifests repo, auto-syncs on every commit)
 Kubernetes (EKS / minikube)
     ├── Deployment (readiness + liveness probes)
     ├── Service
+    ├── HorizontalPodAutoscaler (2-6 replicas, scales on CPU > 70%)
+    ├── PodDisruptionBudget (guarantees min availability during disruptions)
     ├── Self-healing at 2 levels:
     │     • Kubernetes: pods automatically recreated on failure
     │     • ArgoCD: manual cluster drift automatically reverted to match Git
     └── Rollback: reverting a Git commit reverts the live deployment
 ```
 
-*(HPA and Prometheus/Grafana monitoring are being added next — see Roadmap below.)*
+*(Prometheus/Grafana monitoring is being added next — see Roadmap below.)*
 
 ## Tech Stack
 
@@ -72,6 +73,12 @@ Kubernetes (EKS / minikube)
 - **GitOps self-heal (drift correction)** — manually changing the cluster
   outside of Git is automatically detected and reverted by ArgoCD within
   seconds, keeping Git as the single source of truth.
+- **Autoscaling** — a HorizontalPodAutoscaler (2-6 replicas, target 70% CPU)
+  proven live: generated synthetic load with an in-cluster load generator,
+  watched replicas scale 2 → 4 as CPU crossed the threshold, then scale back
+  down automatically once load stopped.
+- **Availability guarantees** — a PodDisruptionBudget ensures at least 1 pod
+  stays available during voluntary disruptions (e.g. node maintenance).
 - **Cost-conscious cloud practice** — infrastructure is destroyed after every
   session (`terraform destroy`) and verified clean via AWS CLI, with local
   minikube used for iteration to avoid unnecessary cloud spend.
@@ -98,7 +105,7 @@ Kubernetes (EKS / minikube)
 cd terraform-dir-name-here   # wherever the .tf files live in this repo
 terraform init
 terraform apply
-```
+nano ~/gitops-eks-platform/terraform/README.mdnano ~/gitops-eks-platform/terraform/README.md```
 
 **App, locally on minikube:**
 ```bash
@@ -142,17 +149,20 @@ kubectl get pods -w   # watch a replacement appear automatically
   causing `repo-server` to CrashLoopBackOff from failed health checks under
   memory pressure. Fixed with a custom Helm values file disabling unused
   components and setting explicit resource limits — 5 pods, 0 restarts.
+- Adding an HPA created a conflict: ArgoCD manages `replicas` from Git, but
+  HPA needs to change it dynamically based on load — the two would fight
+  each other. Fixed by removing the hardcoded `replicas` field from the
+  Deployment manifest and using ArgoCD's `ignoreDifferences` to hand off
+  that field to HPA entirely.
 
 Full day-by-day command log and troubleshooting notes: see `docs/`.
 
 ## Roadmap
 
 - [x] ArgoCD — GitOps-driven deployment from a separate manifests repo
-- [ ] Horizontal Pod Autoscaler + PodDisruptionBudget
+- [x] Horizontal Pod Autoscaler + PodDisruptionBudget
 - [ ] Prometheus + Grafana monitoring, AlertManager alerting
-- [ ] AWS Cost Optimization companion project (Lambda-based auto-stop, budget alerts)
 
 ## Author
 
-Built by [Your Name] — [LinkedIn link] — transitioning into Cloud/DevOps from a
-Helpdesk Support background.
+Built by Nidhiksha A
