@@ -166,4 +166,5 @@ Full day-by-day command log, troubleshooting notes, and screenshots: see `docs/`
 ## Author
 
 Built by Nidhiksha A; 
-[LinkedIn] https://www.linkedin.com/in/nidhiksha-a-991a53220/; [GitHub] https://github.com/nidhiksha-ananth
+
+[LinkedIn] (#https://www.linkedin.com/in/nidhiksha-a-991a53220/  [GitHub] (#https://github.com/nidhiksha-ananth/self-healing-gitops-eks-platform/tree/main)
