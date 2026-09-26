@@ -3,8 +3,7 @@
 A production-style DevOps platform built end-to-end, by hand: infrastructure as code,
 containerized delivery, GitOps deployment, autoscaling, and observability &mdash; on Amazon EKS.
 
-Built while transitioning from a Helpdesk Support role into Cloud/DevOps. Every command in
-this repo was run personally, every bug below was hit and debugged first-hand, and every
+Every command in this repo was run personally, every bug below was hit and debugged first-hand, and every
 piece of infrastructure was torn down responsibly after use.
 
 ---
@@ -163,9 +162,8 @@ Full day-by-day command log, troubleshooting notes, and screenshots: see `docs/`
 - [x] ArgoCD GitOps: sync, rollback, drift correction
 - [x] Horizontal Pod Autoscaler + PodDisruptionBudget
 - [x] Prometheus + Grafana monitoring with alerting
-- [ ] AWS Cost Optimization companion project (Lambda-based auto-stop, budget alerts)
 
 ## Author
 
-Built by Nidhiksha &mdash; transitioning into Cloud/DevOps from a Helpdesk Support background.
-[LinkedIn](#) &middot; [GitHub](https://github.com/nidhiksha-ananth)
+Built by Nidhiksha A; 
+[LinkedIn] https://www.linkedin.com/in/nidhiksha-a-991a53220/; [GitHub] https://github.com/nidhiksha-ananth
